@@ -205,6 +205,11 @@ namespace Bonobo.Git.Server.Controllers
 
             if (ModelState.IsValid)
             {
+                if (User.IsWindowsAuthenticated())
+                {
+                    model.Password = null;
+                }
+
                 if (MembershipService.CreateUser(model.Username, model.Password, model.Name, model.Surname, model.Email))
                 {
                     if (User.IsInRole(Definitions.Roles.Administrator))
